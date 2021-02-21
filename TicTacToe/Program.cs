@@ -35,59 +35,65 @@ namespace TicTacToe
 
 		public void Game() // Game logic
 		{
-			var cursorPosition = (X: 0, Y: 0);
 			InitTable(); // Create new table
-			displayScreen.PrintTable(table,cursorPosition);
 			while (true)
 			{
-				// Human turn
-				while (true) // Control
-				{
-					ConsoleKeyInfo pressed = Console.ReadKey(true);
-					if (pressed.Key == ConsoleKey.LeftArrow)
-					{
-						if (cursorPosition.Y - 2 >= 0)
-						{
-							cursorPosition.Y -= 2;
-							displayScreen.PrintTable(table, cursorPosition);
-						}
-					}
-					if (pressed.Key == ConsoleKey.UpArrow)
-					{
-						if (cursorPosition.X - 2 >= 0)
-						{
-							cursorPosition.X -= 2;
-							displayScreen.PrintTable(table, cursorPosition);
-						}
-					}
-					if (pressed.Key == ConsoleKey.RightArrow)
-					{
-						if (cursorPosition.Y + 2 <= 5)
-						{
-							cursorPosition.Y += 2;
-							displayScreen.PrintTable(table, cursorPosition);
-						}
-					}
-					if (pressed.Key == ConsoleKey.DownArrow)
-					{
-						if (cursorPosition.X + 2 <= 5)
-						{
-							cursorPosition.X += 2;
-							displayScreen.PrintTable(table, cursorPosition);
-						}
-					}
-					if (pressed.Key == ConsoleKey.Enter)
-					{
-						if (table[cursorPosition.X, cursorPosition.Y] == '.')
-						{
-							table[cursorPosition.X, cursorPosition.Y] = 'X';
-							displayScreen.PrintTable(table, cursorPosition);
-						}
-					}
-				}
+				Control();
+
 				// Check
 				// AI turn
 				// Check
+			}
+		}
+
+		void Control()
+		{
+			var cursorPosition = (X: 0, Y: 0);
+			displayScreen.PrintTable(table, cursorPosition);
+
+			while (true)
+			{
+				ConsoleKeyInfo pressed = Console.ReadKey(true);
+				if (pressed.Key == ConsoleKey.LeftArrow)
+				{
+					if (cursorPosition.Y - 2 >= 0)
+					{
+						cursorPosition.Y -= 2;
+						displayScreen.PrintTable(table, cursorPosition);
+					}
+				}
+				if (pressed.Key == ConsoleKey.UpArrow)
+				{
+					if (cursorPosition.X - 2 >= 0)
+					{
+						cursorPosition.X -= 2;
+						displayScreen.PrintTable(table, cursorPosition);
+					}
+				}
+				if (pressed.Key == ConsoleKey.RightArrow)
+				{
+					if (cursorPosition.Y + 2 <= 5)
+					{
+						cursorPosition.Y += 2;
+						displayScreen.PrintTable(table, cursorPosition);
+					}
+				}
+				if (pressed.Key == ConsoleKey.DownArrow)
+				{
+					if (cursorPosition.X + 2 <= 5)
+					{
+						cursorPosition.X += 2;
+						displayScreen.PrintTable(table, cursorPosition);
+					}
+				}
+				if (pressed.Key == ConsoleKey.Enter)
+				{
+					if (table[cursorPosition.X, cursorPosition.Y] == '.')
+					{
+						table[cursorPosition.X, cursorPosition.Y] = 'X';
+						displayScreen.PrintTable(table, cursorPosition);
+					}
+				}
 			}
 		}
 
@@ -143,6 +149,20 @@ namespace TicTacToe
 					}
 				}
 			}
+
+			Console.SetCursorPosition(0, 20);
+			Console.ForegroundColor = ConsoleColor.Blue;
+			Console.WriteLine("  =====  ");
+			Console.WriteLine("=========");
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.WriteLine("( o _ o )");
+			Console.ForegroundColor = ConsoleColor.Green;
+			Console.WriteLine(" /|   |\\");
+			Console.WriteLine("  |___|");
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.WriteLine("  /   \\ ");
+			Console.SetCursorPosition(20, 23);
+			Console.WriteLine("May the best man/woman win!");
 
 		}
 
