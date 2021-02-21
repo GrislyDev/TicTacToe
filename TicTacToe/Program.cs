@@ -4,9 +4,14 @@ namespace TicTacToe
 {
 	class Program
 	{
+
 		static void Main(string[] args)
 		{
 			// Enter
+			TicTacToe tictactoe = new TicTacToe();
+
+			tictactoe.Game();
+
 		}
 	}
 	class TicTacToe
@@ -17,34 +22,59 @@ namespace TicTacToe
 		const char SIGN_EMPTY = '.';
 		char[,] table;
 		Random random;
+		DisplayScreen displayScreen;
 
-		TicTacToe() // Constructor
+		public TicTacToe() // Constructor
 		{
+			displayScreen = new DisplayScreen();
 			random = new Random();
-			table = new char[3,3];
+			table = new char[3, 3];
 		}
 
-		void Game() // Game logic
+		public void Game() // Game logic
 		{
 			InitTable(); // Create new table
+			displayScreen.PrintTable(table);
 
-			while (true)
+			//while (true)
+			//{
+			//	// Human turn
+			//	// Check pos
+			//	// AI turn
+			//	// Check pos
+			//}
+		}
+
+		public void PrintTable() // Display playing field
+		{
+			for (int row = 0; row < 3; row++)
 			{
-				// Human turn
-				// Check pos
-				// AI turn
-				// Check pos
+				for (int col = 0; col < 3; col++)
+					Console.Write(table[row, col] + " ");
+				Console.WriteLine();
 			}
+
+		}
+		public void InitTable() // Initialization of table
+		{
+			for (int row = 0; row < 3; row++)
+				for (int col = 0; col < 3; col++)
+					table[row, col] = SIGN_EMPTY;
+		}
+	}
+	class DisplayScreen
+	{
+
+		public void PrintTable(char[,] table) // Display playing field
+		{
+			for (int row = 0; row < 3; row++)
+			{
+				for (int col = 0; col < 3; col++)
+					Console.Write(table[row, col] + " ");
+				Console.WriteLine();
+			}
+
 		}
 
-		void PrintTable() // Display playing field
-		{
-			
-		}
-
-		void InitTable() // Initialization of table
-		{
-			
-		}
 	}
 }
