@@ -21,6 +21,7 @@ namespace TicTacToe
 		const char SIGN_O = 'o';
 		const char SIGN_EMPTY = '.';
 		char[,] table;
+
 		Random random;
 		DisplayScreen displayScreen;
 
@@ -34,8 +35,7 @@ namespace TicTacToe
 		public void Game() // Game logic
 		{
 			InitTable(); // Create new table
-			displayScreen.PrintTable(table);
-
+			displayScreen.PrintTable(table,Control());
 			//while (true)
 			//{
 			//	// Human turn
@@ -45,14 +45,11 @@ namespace TicTacToe
 			//}
 		}
 
-		public void PrintTable() // Display playing field
+		(int, int) Control()
 		{
-			for (int row = 0; row < 3; row++)
-			{
-				for (int col = 0; col < 3; col++)
-					Console.Write(table[row, col] + " ");
-				Console.WriteLine();
-			}
+			var cursorPosition = (X: 0, Y: 0);
+
+			return cursorPosition;
 
 		}
 		public void InitTable() // Initialization of table
@@ -65,12 +62,26 @@ namespace TicTacToe
 	class DisplayScreen
 	{
 
-		public void PrintTable(char[,] table) // Display playing field
+		public void PrintTable(char[,] table, (int X,int Y) curPos) // Display playing field
 		{
+
+
 			for (int row = 0; row < 3; row++)
 			{
+
 				for (int col = 0; col < 3; col++)
-					Console.Write(table[row, col] + " ");
+				{
+					if (row == curPos.X && col == curPos.Y)
+					{
+						Console.ForegroundColor = ConsoleColor.Green;
+						Console.Write(table[row, col] + " ");
+						Console.ResetColor();
+					}
+					else
+					{
+						Console.Write(table[row, col] + " ");
+					}
+				}
 				Console.WriteLine();
 			}
 
