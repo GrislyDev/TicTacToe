@@ -10,7 +10,7 @@ namespace TicTacToe
 			// Enter
 			TicTacToe tictactoe = new TicTacToe();
 
-			tictactoe.Game();
+			tictactoe.Menu(new string("Arrow keys for control. Enter for select."));
 
 		}
 	}
@@ -23,7 +23,7 @@ namespace TicTacToe
 		const char SIGN_GRID = ' ';
 		char[,] table;
 		bool isPlaying;
-		int counter = 0;
+		int counter;
 
 		Random random;
 		DisplayScreen displayScreen;
@@ -35,10 +35,8 @@ namespace TicTacToe
 			table = new char[5, 5];
 		}
 
-		public void Game() // Game logic
+		public void Game()
 		{
-			isPlaying = true;
-			InitTable(); // Create new table
 			while (isPlaying)
 			{
 				Control();
@@ -48,17 +46,25 @@ namespace TicTacToe
 			}
 		}
 
-		public void End(string msg)
+		public void Menu(string msg)
 		{
 			isPlaying = false;
-			Console.Clear();
-			Console.WriteLine(msg);
+			counter = 0;
+			table = new char[5, 5];
+			displayScreen.printTable(table,(0,0),msg);
+
+			Console.SetCursorPosition((Console.WindowWidth / 2 - 11), 12);
+			Console.WriteLine("PRESS ANY KEY TO START");
+			Console.ReadKey();
+			isPlaying = true;
+			InitTable(); // Create new table
+			Game();
 		}
 
 		void Control()
 		{
 			var cursorPosition = (X: 0, Y: 0);
-			displayScreen.PrintTable(table, cursorPosition);
+			displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
 
 			while (true)
 			{
@@ -68,7 +74,7 @@ namespace TicTacToe
 					if (cursorPosition.Y - 2 >= 0)
 					{
 						cursorPosition.Y -= 2;
-						displayScreen.PrintTable(table, cursorPosition);
+						displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
 					}
 				}
 				if (pressed.Key == ConsoleKey.UpArrow)
@@ -76,7 +82,7 @@ namespace TicTacToe
 					if (cursorPosition.X - 2 >= 0)
 					{
 						cursorPosition.X -= 2;
-						displayScreen.PrintTable(table, cursorPosition);
+						displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
 					}
 				}
 				if (pressed.Key == ConsoleKey.RightArrow)
@@ -84,7 +90,7 @@ namespace TicTacToe
 					if (cursorPosition.Y + 2 <= 5)
 					{
 						cursorPosition.Y += 2;
-						displayScreen.PrintTable(table, cursorPosition);
+						displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
 					}
 				}
 				if (pressed.Key == ConsoleKey.DownArrow)
@@ -92,7 +98,7 @@ namespace TicTacToe
 					if (cursorPosition.X + 2 <= 5)
 					{
 						cursorPosition.X += 2;
-						displayScreen.PrintTable(table, cursorPosition);
+						displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
 					}
 				}
 				if (pressed.Key == ConsoleKey.Enter)
@@ -100,7 +106,7 @@ namespace TicTacToe
 					if (table[cursorPosition.X, cursorPosition.Y] == SIGN_EMPTY)
 					{
 						table[cursorPosition.X, cursorPosition.Y] = SIGN_X;
-						displayScreen.PrintTable(table, cursorPosition);
+						displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
 						return;
 					}
 				}
@@ -111,7 +117,6 @@ namespace TicTacToe
 		{
 			while (true)
 			{
-				random = new Random();
 				int x, y;
 				x = random.Next(0, 5);
 				y = random.Next(0, 5);
@@ -129,25 +134,25 @@ namespace TicTacToe
 			counter++;
 			//Horizontal
 			if (table[0, 0] == sign && table[2, 0] == sign && table[4, 0] == sign)
-				End(new string(player + " won!"));
+				Menu(new string(player + " won!"));
 			if (table[0, 2] == sign && table[2, 2] == sign && table[4, 2] == sign)
-				End(new string(player + " won!"));
+				Menu(new string(player + " won!"));
 			if (table[0, 4] == sign && table[2, 4] == sign && table[4, 4] == sign)
-				End(new string(player + " won!"));
+				Menu(new string(player + " won!"));
 			//Vertical
 			if (table[0, 0] == sign && table[0, 2] == sign && table[0, 4] == sign)
-				End(new string(player + " won!"));
+				Menu(new string(player + " won!"));
 			if (table[2, 0] == sign && table[2, 2] == sign && table[2, 4] == sign)
-				End(new string(player + " won!"));
+				Menu(new string(player + " won!"));
 			if (table[4, 0] == sign && table[4, 2] == sign && table[4, 4] == sign)
-				End(new string(player + " won!"));
+				Menu(new string(player + " won!"));
 			//Diagonal
 			if (table[0, 0] == sign && table[2, 2] == sign && table[4, 4] == sign)
-				End(new string(player + " won!"));
+				Menu(new string(player + " won!"));
 			if (table[4, 0] == sign && table[2, 2] == sign && table[0, 4] == sign)
-				End(new string(player + " won!"));
+				Menu(new string(player + " won!"));
 			if (counter == 9)
-				End(new string("Tie!"));
+				Menu(new string("Tie!"));
 		}
 
 		public void InitTable() // Initialization of table
@@ -165,7 +170,7 @@ namespace TicTacToe
 	class DisplayScreen
 	{
 
-		public void PrintTable(char[,] table, (int X,int Y) curPos) // Display playing field
+		public void printTable(char[,] table, (int X,int Y) curPos, string msg) // Display playing field
 		{
 			Console.Clear();
 			int centerX = (Console.WindowWidth / 2) - 2;
@@ -215,7 +220,7 @@ namespace TicTacToe
 			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine("  /   \\ ");
 			Console.SetCursorPosition(20, 23);
-			Console.WriteLine("May the best man/woman win!");
+			Console.WriteLine(msg);
 
 		}
 
