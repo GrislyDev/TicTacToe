@@ -42,9 +42,9 @@ namespace TicTacToe
 			while (isPlaying)
 			{
 				Control();
-				Check(new string("Player"));
-				// AI turn
-				// Check
+				Check(new string("Player"),SIGN_X);
+				AI();
+				Check(new string("Computer"),SIGN_O);
 			}
 		}
 
@@ -97,9 +97,9 @@ namespace TicTacToe
 				}
 				if (pressed.Key == ConsoleKey.Enter)
 				{
-					if (table[cursorPosition.X, cursorPosition.Y] == '.')
+					if (table[cursorPosition.X, cursorPosition.Y] == SIGN_EMPTY)
 					{
-						table[cursorPosition.X, cursorPosition.Y] = 'X';
+						table[cursorPosition.X, cursorPosition.Y] = SIGN_X;
 						displayScreen.PrintTable(table, cursorPosition);
 						return;
 					}
@@ -107,29 +107,44 @@ namespace TicTacToe
 			}
 		}
 
+		void AI()
+		{
+			while (true)
+			{
+				random = new Random();
+				int x, y;
+				x = random.Next(0, 5);
+				y = random.Next(0, 5);
+				if (table[x, y] == SIGN_EMPTY)
+				{
+					table[x, y] = SIGN_O;
+					return;
+				}
 
+			}
+		}
 
-		void Check(string player)
+		void Check(string player, char sign)
 		{
 			counter++;
 			//Horizontal
-			if (table[0, 0] != '.' && table[2, 0] != '.' && table[4, 0] != '.')
+			if (table[0, 0] == sign && table[2, 0] == sign && table[4, 0] == sign)
 				End(new string(player + " won!"));
-			if (table[0, 2] != '.' && table[2, 2] != '.' && table[4, 2] != '.')
+			if (table[0, 2] == sign && table[2, 2] == sign && table[4, 2] == sign)
 				End(new string(player + " won!"));
-			if (table[0, 4] != '.' && table[2, 4] != '.' && table[4, 4] != '.')
+			if (table[0, 4] == sign && table[2, 4] == sign && table[4, 4] == sign)
 				End(new string(player + " won!"));
 			//Vertical
-			if (table[0, 0] != '.' && table[0, 2] != '.' && table[0, 4] != '.')
+			if (table[0, 0] == sign && table[0, 2] == sign && table[0, 4] == sign)
 				End(new string(player + " won!"));
-			if (table[2, 0] != '.' && table[2, 2] != '.' && table[2, 4] != '.')
+			if (table[2, 0] == sign && table[2, 2] == sign && table[2, 4] == sign)
 				End(new string(player + " won!"));
-			if (table[4, 0] != '.' && table[4, 2] != '.' && table[4, 4] != '.')
+			if (table[4, 0] == sign && table[4, 2] == sign && table[4, 4] == sign)
 				End(new string(player + " won!"));
 			//Diagonal
-			if (table[0, 0] != '.' && table[2, 2] != '.' && table[4, 4] != '.')
+			if (table[0, 0] == sign && table[2, 2] == sign && table[4, 4] == sign)
 				End(new string(player + " won!"));
-			if (table[4, 0] != '.' && table[2, 2] != '.' && table[0, 4] != '.')
+			if (table[4, 0] == sign && table[2, 2] == sign && table[0, 4] == sign)
 				End(new string(player + " won!"));
 			if (counter == 9)
 				End(new string("Tie!"));
