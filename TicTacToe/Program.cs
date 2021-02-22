@@ -22,6 +22,8 @@ namespace TicTacToe
 		const char SIGN_EMPTY = '.';
 		const char SIGN_GRID = ' ';
 		char[,] table;
+		bool isPlaying;
+		int counter = 0;
 
 		Random random;
 		DisplayScreen displayScreen;
@@ -35,15 +37,22 @@ namespace TicTacToe
 
 		public void Game() // Game logic
 		{
+			isPlaying = true;
 			InitTable(); // Create new table
-			while (true)
+			while (isPlaying)
 			{
 				Control();
-
-				// Check
+				Check(new string("Player"));
 				// AI turn
 				// Check
 			}
+		}
+
+		public void End(string msg)
+		{
+			isPlaying = false;
+			Console.Clear();
+			Console.WriteLine(msg);
 		}
 
 		void Control()
@@ -92,9 +101,38 @@ namespace TicTacToe
 					{
 						table[cursorPosition.X, cursorPosition.Y] = 'X';
 						displayScreen.PrintTable(table, cursorPosition);
+						return;
 					}
 				}
 			}
+		}
+
+
+
+		void Check(string player)
+		{
+			counter++;
+			//Horizontal
+			if (table[0, 0] != '.' && table[2, 0] != '.' && table[4, 0] != '.')
+				End(new string(player + " won!"));
+			if (table[0, 2] != '.' && table[2, 2] != '.' && table[4, 2] != '.')
+				End(new string(player + " won!"));
+			if (table[0, 4] != '.' && table[2, 4] != '.' && table[4, 4] != '.')
+				End(new string(player + " won!"));
+			//Vertical
+			if (table[0, 0] != '.' && table[0, 2] != '.' && table[0, 4] != '.')
+				End(new string(player + " won!"));
+			if (table[2, 0] != '.' && table[2, 2] != '.' && table[2, 4] != '.')
+				End(new string(player + " won!"));
+			if (table[4, 0] != '.' && table[4, 2] != '.' && table[4, 4] != '.')
+				End(new string(player + " won!"));
+			//Diagonal
+			if (table[0, 0] != '.' && table[2, 2] != '.' && table[4, 4] != '.')
+				End(new string(player + " won!"));
+			if (table[4, 0] != '.' && table[2, 2] != '.' && table[0, 4] != '.')
+				End(new string(player + " won!"));
+			if (counter == 9)
+				End(new string("Tie!"));
 		}
 
 		public void InitTable() // Initialization of table
