@@ -25,18 +25,7 @@ namespace TicTacToe
 			table = new char[5, 5];
 		}
 
-		public void Game()
-		{
-			while (isPlaying)
-			{
-				Control();
-				Check(new string("Player"), SIGN_X);
-				AI();
-				Check(new string("Computer"), SIGN_O);
-			}
-		}
-
-		public void Menu(string msg)
+		public void Game(string msg)
 		{
 			isPlaying = false;
 			counter = 0;
@@ -66,46 +55,32 @@ namespace TicTacToe
 			{
 				ConsoleKeyInfo pressed = Console.ReadKey(true);
 				if (pressed.Key == ConsoleKey.LeftArrow)
-				{
 					if (cursorPosition.Y - 2 >= 0)
-					{
 						cursorPosition.Y -= 2;
-						displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
-					}
-				}
+
 				if (pressed.Key == ConsoleKey.UpArrow)
-				{
 					if (cursorPosition.X - 2 >= 0)
-					{
 						cursorPosition.X -= 2;
-						displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
-					}
-				}
+
 				if (pressed.Key == ConsoleKey.RightArrow)
-				{
 					if (cursorPosition.Y + 2 <= 5)
-					{
 						cursorPosition.Y += 2;
-						displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
-					}
-				}
+
 				if (pressed.Key == ConsoleKey.DownArrow)
-				{
 					if (cursorPosition.X + 2 <= 5)
-					{
 						cursorPosition.X += 2;
-						displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
-					}
-				}
+
+				displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
+
 				if (pressed.Key == ConsoleKey.Enter)
-				{
 					if (table[cursorPosition.X, cursorPosition.Y] == SIGN_EMPTY)
 					{
 						table[cursorPosition.X, cursorPosition.Y] = SIGN_X;
 						displayScreen.printTable(table, cursorPosition, new string("I am your fan!"));
 						return;
 					}
-				}
+					
+				
 			}
 		}
 
@@ -130,25 +105,25 @@ namespace TicTacToe
 			counter++;
 			//Horizontal
 			if (table[0, 0] == sign && table[2, 0] == sign && table[4, 0] == sign)
-				Menu(new string(player + " won!"));
+				Game(new string(player + " won!"));
 			if (table[0, 2] == sign && table[2, 2] == sign && table[4, 2] == sign)
-				Menu(new string(player + " won!"));
+				Game(new string(player + " won!"));
 			if (table[0, 4] == sign && table[2, 4] == sign && table[4, 4] == sign)
-				Menu(new string(player + " won!"));
+				Game(new string(player + " won!"));
 			//Vertical
 			if (table[0, 0] == sign && table[0, 2] == sign && table[0, 4] == sign)
-				Menu(new string(player + " won!"));
+				Game(new string(player + " won!"));
 			if (table[2, 0] == sign && table[2, 2] == sign && table[2, 4] == sign)
-				Menu(new string(player + " won!"));
+				Game(new string(player + " won!"));
 			if (table[4, 0] == sign && table[4, 2] == sign && table[4, 4] == sign)
-				Menu(new string(player + " won!"));
+				Game(new string(player + " won!"));
 			//Diagonal
 			if (table[0, 0] == sign && table[2, 2] == sign && table[4, 4] == sign)
-				Menu(new string(player + " won!"));
+				Game(new string(player + " won!"));
 			if (table[4, 0] == sign && table[2, 2] == sign && table[0, 4] == sign)
-				Menu(new string(player + " won!"));
+				Game(new string(player + " won!"));
 			if (counter == 9)
-				Menu(new string("Tie!"));
+				Game(new string("Tie!"));
 		}
 
 		public void InitTable() // Initialization of table

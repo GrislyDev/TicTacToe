@@ -45,19 +45,21 @@ namespace TicTacToe
 				}
 			}
 
-			Console.SetCursorPosition(0, 20);
-			Console.ForegroundColor = ConsoleColor.Blue;
-			Console.WriteLine("  =====  ");
-			Console.WriteLine("=========");
-			Console.ForegroundColor = ConsoleColor.Yellow;
-			Console.WriteLine("( o _ o )");
-			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine(" /|   |\\");
-			Console.WriteLine("  |___|");
-			Console.ForegroundColor = ConsoleColor.Yellow;
-			Console.WriteLine("  /   \\ ");
-			Console.SetCursorPosition(20, 23);
-			Console.WriteLine(msg);
+			{
+				Console.SetCursorPosition(0, 20);
+				Console.ForegroundColor = ConsoleColor.Blue;
+				Console.WriteLine("  =====  ");
+				Console.WriteLine("=========");
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.WriteLine("( o _ o )");
+				Console.ForegroundColor = ConsoleColor.Green;
+				Console.WriteLine(" /|   |\\");
+				Console.WriteLine("  |___|");
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.WriteLine("  /   \\ ");
+				Console.SetCursorPosition(20, 23);
+				Console.WriteLine(msg);
+			}// STASIK
 
 		}
 

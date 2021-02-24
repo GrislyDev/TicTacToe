@@ -10,7 +10,7 @@ namespace TicTacToe
 			// Enter
 			TicTacToe tictactoe = new TicTacToe();
 
-			tictactoe.Menu(new string("Arrow keys for control. Enter for select."));
+			tictactoe.Game(new string("Arrow keys for control. Enter for select."));
 
 		}
 	}
